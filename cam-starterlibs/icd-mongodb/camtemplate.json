@@ -1,0 +1,29 @@
+{
+  "name": "IBM Cloud Databases for MongoDB",
+  "description": "MongoDB NoSQL Database in IBM Cloud",
+  "version": "1.0",
+  "type": "prebuilt",
+  "manifest": {
+    "template_type": "Terraform",
+    "template_format": "HCL",
+    "template_provider": "IBM",
+    "template": {
+      "templateData": "",
+      "templateVariables": "",
+      "templateOutput": ""
+    },
+    "template_source": {
+      "githubRepoUrl": "",
+      "githubAccessToken": "",
+      "relativePathToTemplateFolder": "./",
+      "templateFileName": "main.tf"
+    }
+  },
+    "metadata": {
+      "displayName": "IBM Cloud Databases for MongoDB",
+      "longDescription": "IBM Cloud Databases for MongoDB",
+      "featuredImageUrl": "https://broker.eu-de.databases.cloud.ibm.com/images/mongodb.svg",
+      "imageUrl": "https://broker.eu-de.databases.cloud.ibm.com/images/mongodb.svg"
+
+  }
+}
