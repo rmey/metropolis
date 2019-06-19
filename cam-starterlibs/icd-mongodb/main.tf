@@ -26,10 +26,6 @@ data "ibm_resource_group" "group" {
   name = "${var.rg}"
 }
 
-provider "ibm" {
-  bluemix_timeout = 24000
-}
-
 resource "ibm_database" "db" {
   resource_group_id = "${data.ibm_resource_group.group.id}"
   name              = "${var.svcname}"
