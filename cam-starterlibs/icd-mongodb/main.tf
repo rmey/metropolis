@@ -26,6 +26,10 @@ data "ibm_resource_group" "group" {
   name = "${var.rg}"
 }
 
+provider "ibm" {
+ ibmcloud_timeout = 30000
+}
+
 resource "ibm_database" "db" {
   resource_group_id = "${data.ibm_resource_group.group.id}"
   name              = "${var.svcname}"
@@ -44,9 +48,7 @@ resource "ibm_database" "db" {
     password = "${var.password}"
   }
 }
-provider “ibm” {
- ibmcloud_timeout = 30000
-}
+
 output "connectionString" {
   value = "http://${"${ibm_database.db.connectionstrings.0.composed}"}"
 }
