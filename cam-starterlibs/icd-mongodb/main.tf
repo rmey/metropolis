@@ -45,6 +45,10 @@ resource "ibm_database" "db" {
   }
 }
 
+provider "ibm" {
+    ibmcloud_timeout = "2400"
+}
+
 output "connectionString" {
   value = "http://${"${ibm_database.db.connectionstrings.0.composed}"}"
 }
