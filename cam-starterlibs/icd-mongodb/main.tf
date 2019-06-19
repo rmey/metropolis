@@ -26,6 +26,13 @@ data "ibm_resource_group" "group" {
   name = "${var.rg}"
 }
 
+provider "ibm" {
+  bluemix_api_key    = "${var.ibm_bmx_api_key}"
+  softlayer_username = "${var.ibm_sl_username}"
+  softlayer_api_key  = "${var.ibm_sl_api_key}"
+  bluemix_timeout = 24000
+}
+
 resource "ibm_database" "db" {
   resource_group_id = "${data.ibm_resource_group.group.id}"
   name              = "${var.svcname}"
