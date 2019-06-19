@@ -44,7 +44,9 @@ resource "ibm_database" "db" {
     password = "${var.password}"
   }
 }
-
+provider “ibm” {
+ ibmcloud_timeout   = 30000
+}
 output "connectionString" {
   value = "http://${"${ibm_database.db.connectionstrings.0.composed}"}"
 }
