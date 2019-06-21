@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "simpleapp.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "simpleapp.name" . }}
+    helm.sh/chart: {{ include "simpleapp.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "simpleapp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
