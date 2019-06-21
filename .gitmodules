@@ -1,0 +1,3 @@
+[submodule "MEAN-Helm-Examples/iks-simpleapp/nodejs-MEAN-stack"]
+	path = MEAN-Helm-Examples/iks-simpleapp/nodejs-MEAN-stack
+	url = git@github.com:rmey/nodejs-MEAN-stack.git
