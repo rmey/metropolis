@@ -1,40 +1,20 @@
-{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "simpleapp.fullname" . -}}
-{{- $ingressPaths := .Values.ingress.paths -}}
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
-  labels:
-    app.kubernetes.io/name: {{ include "simpleapp.name" . }}
-    helm.sh/chart: {{ include "simpleapp.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-  {{- with .Values.ingress.annotations }}
+  name: {{ .Release.Name }}-simpleapp
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+   ingress.bluemix.net/redirect-to-https: "True"
 spec:
-{{- if .Values.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
-    - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
-      {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
-{{- end }}
+  - hosts:
+    - {{ .Release.Name }}-simpleapp.supercluster.eu-de.containers.appdomain.cloud
+    secretName: supercluster
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
-        paths:
-	{{- range $ingressPaths }}
-          - path: {{ . }}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
-	{{- end }}
-  {{- end }}
-{{- end }}
+  - host: {{ .Release.Name }}-simpleapp.supercluster.eu-de.containers.appdomain.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}-simpleapp
+          servicePort: 6020

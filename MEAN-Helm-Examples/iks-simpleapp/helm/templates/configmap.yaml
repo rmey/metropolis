@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-dot-env-file
+data:
+   .env: |
+    # Helm Parameter
+    SESSION_SECRET="Overlord"
+    # Helm Parameter
+    MONGODB_URL="{{ .Values.mongodb_url }}"
+    # Helm Parameter
+    CERTIFICATE_BASE64="{{ .Values.certificate_base64 }}"
+    PORT=6020
+    BIND=0.0.0.0
