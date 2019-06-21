@@ -27,9 +27,6 @@ data "ibm_resource_group" "group" {
 }
 
 provider "ibm" {
- ibmcloud_api_key    = "${var.ibm_bmx_api_key}"
- softlayer_username = "${var.ibm_sl_username}"
- softlayer_api_key  = "${var.ibm_sl_api_key}"
  ibmcloud_timeout = 30000
  softlayer_timeout = 30000
  max_retries = 100
