@@ -1,0 +1,3 @@
+./MEAN-Helm-Examples/iks-simpleapp/deploy2kube.yml
+./MEAN-Helm-Examples/iks-simpleapp/helm/_myvalues.yaml
+./cam-starterlibs/icd-mongodb/test/
