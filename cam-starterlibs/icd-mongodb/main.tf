@@ -27,7 +27,10 @@ data "ibm_resource_group" "group" {
 }
 
 provider "ibm" {
- ibmcloud_timeout = 30000
+ ibmcloud_timeout = 50000
+ softlayer_timeout = 50000
+ max_retries = 100
+ region = "eu-de"
 }
 
 resource "ibm_database" "db" {
