@@ -57,6 +57,7 @@ const resolvers = {
                 console.log(args);
                 let response = await Todoitem.updateOne({_id:args._id}, {text:args.text},{new:true});
                 console.log(response);
+
                 return response;
             } catch(e) {
                 console.log(e);
