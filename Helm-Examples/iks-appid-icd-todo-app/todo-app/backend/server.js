@@ -22,8 +22,6 @@ const typeDefs = gql`
     }
 `;
 
-//deleteTodoitem(id: String!): Todoitem
-
 const resolvers = {
 
     Query: {
@@ -84,13 +82,26 @@ if (!isDocker()) {
   console.log('load config');
   require('dotenv').config();
 }
-var ca = Buffer.from(process.env.CERTIFICATE_BASE64, 'base64');
+
 mongoDbOptions = {
     useNewUrlParser: true,
-    ssl: true,
-    sslValidate: true,
-    sslCA: ca
+    ssl: false,
+    sslValidate: false,
+    sslCA: null,
 };
+// check for certificate
+if(process.env.CERTIFICATE_BASE64){
+    var ca = Buffer.from(process.env.CERTIFICATE_BASE64, 'base64');
+    mongoDbOptions.ssl = true;
+    mongoDbOptions.sslValidate = true;
+    mongoDbOptions.sslCA = Buffer.from(process.env.CERTIFICATE_BASE64, 'base64');
+}
+
+mongoose.connect(process.env.MONGODB_URL, mongoDbOptions)
+    .then(res => console.log(res))
+    .catch(function (reason) {
+      console.log('Unable to connect to the mongodb instance. Error: ', reason);
+    });
 
 const server = new ApolloServer({ typeDefs, resolvers,
   context: ({ req }) => {
@@ -107,9 +118,3 @@ const server = new ApolloServer({ typeDefs, resolvers,
 server.listen({port: process.env.PORT}).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
-
-mongoose.connect(process.env.MONGODB_URL, mongoDbOptions)
-    .then(res => console.log(res))
-    .catch(function (reason) {
-      console.log('Unable to connect to the mongodb instance. Error: ', reason);
-    });
