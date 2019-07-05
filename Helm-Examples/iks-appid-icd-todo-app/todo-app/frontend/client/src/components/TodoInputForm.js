@@ -1,63 +1,39 @@
 import React, {Component} from 'react';
 
+import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
+import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
+
 class TodoInputForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { todotext: '' }
+    this.todotext = React.createRef();
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    this.setState({ todotext: event.target.value })
+    const value = this.todotext.current.value;
   }
 
   handleSubmit(event) {
-    alert(this.state.todotext)
-    event.preventDefault()
+    var val = this.todotext.current.value;
+    alert(val);
   }
   render() {
     return (
-      React.createElement("div",{className:"form"}),
-      React.createElement("form", { ref: "form", onSubmit: this.onSubmit, className: "todoform" },
-      React.createElement("input", { type: "text", ref: "itemName", className: "todoform", placeholder: "add a new todo..." }),
-      React.createElement("button", { type: "submit", className: "btn btn-success btn-add" }, "Add"))
+      <InputGroup className="mb-3">
+      <FormControl
+        placeholder="Recipient's username"
+        ref={this.todotext} type="text" onChange={() => this.handleChange()}
+      />
+      <InputGroup.Append>
+        <Button onClick={() => this.handleSubmit()} variant="btn btn-success btn-add">Add</Button>
+        </InputGroup.Append>
+      </InputGroup>
     )
   }
 }
 
-
-
-
-/*
-class TodoInputForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todotext: '' };
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(event) {
-    this.setState({ value: event.target.todotext });
-  }
-
-  render() {
-    return (
-      <form>
-        className="form-inline"
-        Todo:
-        <input
-          type="text"
-          value={this.state.todotext}
-          onChange={this.handleChange}
-          className="form-control"
-        />
-      </form>
-
-      //React.createElement("form", { ref: "form", onSubmit: this.onSubmit, className: "form-inline" },
-      //React.createElement("input", { type: "text", ref: "itemName", className: "form-control", placeholder: "add a new todo..." }),
-      //React.createElement("button", { type: "submit", className: "btn btn-success btn-add" }, "Add"))
-    );
-  }
-}
-*/
 export default TodoInputForm;
