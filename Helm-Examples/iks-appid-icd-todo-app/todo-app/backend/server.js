@@ -104,15 +104,26 @@ mongoose.connect(process.env.MONGODB_URL, mongoDbOptions)
     });
 
 const server = new ApolloServer({ typeDefs, resolvers,
-  context: ({ req }) => {
+  formatError: error => {
+     console.log(error);
+     return error;
+   },
+   formatResponse: response => {
+     console.log(response);
+     return response;
+   },
+ context: ({ req }) => {
      // get the user token from the headers
-     const token = req.headers.authorization || '';
+    const token = req.headers.authorization || '';
+     //console.log(req.body);
+
 
      // try to retrieve a user with the token
      // const user = getUser(token);
-
      // add the user to the context
      //return { user };
+
+
    }
 });
 server.listen({port: process.env.PORT}).then(({ url }) => {
