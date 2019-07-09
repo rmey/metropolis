@@ -12,18 +12,21 @@ import gql from 'graphql-tag';
 class TodoInputForm extends React.Component {
   constructor(props) {
     super(props)
-    this.todotext = React.createRef();
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = { todotext: '' };
+    //this.todotext = React.createRef();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    const value = this.todotext.current.value;
+    //const value = this.todotext.current.value;
+    this.setState({ todotext: event.target.value });
   }
 
   handleSubmit(event) {
-    var val = this.todotext.current.value;
-    alert(val);
+    var val = this.state.todotext;
+    //alert(val);
+    //https://moonhighway.com/understanding-graphql-mutations
     const apolloClient = new ApolloClient({
       // By default, this client will send queries to the
       //  `/graphql` endpoint on the same host
@@ -42,18 +45,22 @@ class TodoInputForm extends React.Component {
         }
       }
     `
-  }).then(result => { console.log(result) }).catch(error => { console.log(error) });
+  })
+  .then(result => {
+    console.log(result);
+  })
+  .catch(error => { console.log(error) });
   }
 
   render() {
     return (
       <InputGroup className="mb-3">
       <FormControl
-        placeholder="Recipient's username"
-        ref={this.todotext} type="text" onChange={() => this.handleChange()}
+        placeholder="Enter a todo text"
+        value={this.state.todotext} type="text" onChange={this.handleChange}
       />
       <InputGroup.Append>
-        <Button onClick={() => this.handleSubmit()} variant="btn btn-success btn-add">Add</Button>
+        <Button disabled={!this.state.todotext} onClick={this.handleSubmit} variant="btn btn-success btn-add">Add</Button>
         </InputGroup.Append>
       </InputGroup>
     )
