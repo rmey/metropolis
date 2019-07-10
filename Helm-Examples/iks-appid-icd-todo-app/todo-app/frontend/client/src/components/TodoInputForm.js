@@ -50,6 +50,8 @@ class TodoInputForm extends React.Component {
     console.log(result);
   })
   .catch(error => { console.log(error) });
+
+  this.setState({todotext: ''});
   }
 
   render() {
