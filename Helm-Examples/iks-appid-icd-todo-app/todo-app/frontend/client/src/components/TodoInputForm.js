@@ -4,10 +4,15 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
+
+import TodoQueryClient from '../graphql/TodoQueryClient'
+
+/*
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from 'graphql-tag';
+*/
 
 class TodoInputForm extends React.Component {
   constructor(props) {
@@ -23,9 +28,13 @@ class TodoInputForm extends React.Component {
     this.setState({ todotext: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     var val = this.state.todotext;
+
+    const client = new TodoQueryClient();
+    const ret = await client.add(val);
     //alert(val);
+    /*
     //https://moonhighway.com/understanding-graphql-mutations
     const apolloClient = new ApolloClient({
       // By default, this client will send queries to the
@@ -50,7 +59,7 @@ class TodoInputForm extends React.Component {
     console.log(result);
   })
   .catch(error => { console.log(error) });
-
+  */
   this.setState({todotext: ''});
   }
 
