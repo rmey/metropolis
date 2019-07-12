@@ -21,19 +21,48 @@ export default class TodoQueryClient {
     instance = this;
   }
 
-  async add(todo) {
-    const result = await this.apolloClient.mutate({
-      variables: {text: todo, isComplete: false},
-      mutation: gql`mutation add($text: String!, $isComplete: Boolean){
-        add(text: $text, isComplete: $isComplete) {
-          _id
-          text
-          isComplete
+  async addTodoItem(todo) {
+    var data = null;
+    try {
+      data = await this.apolloClient.mutate({
+        variables: {text: todo, isComplete: false},
+        mutation: gql`mutation add($text: String!, $isComplete: Boolean){
+          add(text: $text, isComplete: $isComplete) {
+            _id
+            text
+            isComplete
+          }
         }
-      }
-    `
-    });
-    console.log(result);
-    return result;
+      `
+      });
+    } catch (e) {
+        console.error(e);
+        return {ok:false, error: e};
+    }
+    console.log(data);
+    return {ok:true, result: data};
   }
+
+  async getTodoItems(){
+    var data = null;
+    try {
+      data = await this.apolloClient.query({
+        query: gql`{
+          getTodoitems {
+            _id
+            text
+            isComplete
+          }
+        }
+      `
+      });
+    } catch (e) {
+        console.error(e);
+        return {ok:false, error: e};
+    }
+    var ret ={ok:true, result: data};
+    console.log(ret);
+    return ret;
+  }
+
 }

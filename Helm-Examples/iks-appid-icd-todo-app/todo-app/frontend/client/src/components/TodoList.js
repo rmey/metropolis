@@ -1,23 +1,34 @@
 import React, {Component} from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
+import TodoQueryClient from '../graphql/TodoQueryClient'
 
-var items = [
-{ _id: 1, text: "make", isComplete: false },
-{ _id: 2, text: "my", done: true },
-{ _id: 3, text: "day", done: true }];
+
 
 class TodoList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {listitems:[],error: null,isLoading: true};
+  }
   render() {
     return(
-    <ListGroup>
-        {items.map(listitem => (
-            <ListGroup.Item variant="light">
-            {listitem.text}
-            </ListGroup.Item>
-          ))
-        }
-    </ListGroup>
+      <ListGroup className="todo-list">
+          {this.state.listitems.map(item => (
+              <ListGroup.Item variant="light">
+              {item.text}
+              </ListGroup.Item>
+            ))
+          }
+      </ListGroup>
     )
+  }
+  async componentDidMount() {
+    // make the call to the backend
+    const client = new TodoQueryClient();
+    const ret = await client.getTodoItems();
+    if(ret.ok){
+      this.setState({listitems:ret.result.data.getTodoitems});
+      this.setState({isLoading:false});
+    }
   }
 }
 

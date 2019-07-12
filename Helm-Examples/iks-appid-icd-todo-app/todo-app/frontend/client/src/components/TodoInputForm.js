@@ -7,17 +7,11 @@ import InputGroup from 'react-bootstrap/InputGroup'
 
 import TodoQueryClient from '../graphql/TodoQueryClient'
 
-/*
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import gql from 'graphql-tag';
-*/
-
 class TodoInputForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { todotext: '' };
+    this.state = { todotext: ''};
+    this.state = { error: null};
     //this.todotext = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,42 +22,22 @@ class TodoInputForm extends React.Component {
     this.setState({ todotext: event.target.value });
   }
 
+  // the async could we wrong! need to check event loop
   async handleSubmit(event) {
     var val = this.state.todotext;
-
     const client = new TodoQueryClient();
-    const ret = await client.add(val);
-    //alert(val);
-    /*
-    //https://moonhighway.com/understanding-graphql-mutations
-    const apolloClient = new ApolloClient({
-      // By default, this client will send queries to the
-      //  `/graphql` endpoint on the same host
-      // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
-      // to a different host
-      link: new HttpLink({ uri: "/graphql" }),
-      cache: new InMemoryCache()
-    });  //($text: String, $isComplete: Boolean) todotext: val
-    apolloClient.mutate({
-      variables: {text: val, isComplete: false},
-      mutation: gql`mutation add($text: String!, $isComplete: Boolean){
-        add(text: $text, isComplete: $isComplete) {
-          _id
-          text
-          isComplete
-        }
-      }
-    `
-  })
-  .then(result => {
-    console.log(result);
-  })
-  .catch(error => { console.log(error) });
-  */
-  this.setState({todotext: ''});
+    const ret = await client.addTodoItem(val);
+    if(!ret.ok){
+      this.setState({ error: 'Item could not be created' + ret.error});
+    }
+    this.setState({todotext: ''});
   }
 
   render() {
+    /*
+    if (this.state.error) {
+      return <h1>Caught an error.</h1>
+    }*/
     return (
       <InputGroup className="mb-3">
       <FormControl

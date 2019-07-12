@@ -1,12 +1,39 @@
 
 import React, {Component} from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
-class Header extends React.Component {
+
+export default class Header extends React.Component {
   render() {
     return(
-        React.createElement("h1", null, "Welcome to your personal Todo List")
+
+        //React.createElement("h1", null, "Welcome to your personal Todo List")
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="#features">Features</Nav.Link>
+          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+        </Navbar>
     );
   }
 }
 
-export default Header;
+export class Footer extends React.Component {
+  render() {
+    return(
+
+        //React.createElement("h1", null, "Welcome to your personal Todo List")
+        <Navbar bg="primary" variant="dark" fixed="bottom">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="#features">Features</Nav.Link>
+          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+        </Navbar>
+    );
+  }
+}

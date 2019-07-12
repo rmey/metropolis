@@ -21,7 +21,20 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 #root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#todo {
   width: 60%;
   margin: 0 auto;
   text-align: center;
+}
+
+.todo-list{
+    max-height: 400px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
 }
