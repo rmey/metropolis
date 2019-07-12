@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - {{ .Release.Name }}-simpleapp.supercluster.eu-de.containers.appdomain.cloud
-    secretName: supercluster
+    - {{ .Release.Name }}.{{ .Values.ingressSubdomain }}
+    secretName: {{ .Values.ingressSecret }}
   rules:
-  - host: {{ .Release.Name }}-simpleapp.supercluster.eu-de.containers.appdomain.cloud
+  - host: {{ .Release.Name }}.{{ .Values.ingressSubdomain }}
     http:
       paths:
       - path: /

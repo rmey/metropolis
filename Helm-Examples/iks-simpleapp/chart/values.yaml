@@ -9,5 +9,9 @@ image:
   pullPolicy: Always
 # your IBM Cloud MongoDB Connection String
 mongodb_url: "mongodb://ibm_cloud_XXX:XXX@HOST1:30212,HOST2:30212/ibmclouddb?authSource=admin&replicaSet=replset"
-# your IBM Cloud base64 cert
+# your IBM Cloud ICD MongoDB base64 cert
 certificate_base64: "LS....="
+# Ingress Subdomain
+ingressSubdomain: "CLUSTERNAME.REGION.containers.appdomain.cloud"
+# Ingress secret
+ingressSecret: "CLUSTERNAME"
