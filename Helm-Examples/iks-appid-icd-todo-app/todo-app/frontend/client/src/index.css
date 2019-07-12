@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 #todo {
   width: 60%;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .todo-list{
@@ -37,4 +37,15 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
     overflow:scroll;
     -webkit-overflow-scrolling: touch;
+}
+
+.check-btn {
+  color: black;
+  background-color: transparent;
+}
+
+.delete-btn {
+  color: black;
+  background-color: transparent;
+  float: right;
 }
