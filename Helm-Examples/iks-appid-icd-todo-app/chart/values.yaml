@@ -24,3 +24,5 @@ ingressSubdomain: "CLUSTERNAME.REGION.containers.appdomain.cloud"
 ingressSecret: "CLUSTERNAME"
 # enable for APP ID Integration (JSON file with Service Credentials)
 appid_credentials: "_appid.json"
+# to disable set to empty value!!!!
+#appid_credentials:

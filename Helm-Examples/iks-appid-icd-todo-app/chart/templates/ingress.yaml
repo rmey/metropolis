@@ -6,7 +6,7 @@ metadata:
   annotations:
    ingress.bluemix.net/redirect-to-https: "True"
    {{- if .Values.appid_credentials }}
-   ingress.bluemix.net/hsts: enabled=true maxAge=<31536000> includeSubdomains=true
+   ingress.bluemix.net/appid-auth: "bindSecret={{- .Release.Name -}}-appid namespace=default requestType=web serviceName={{ .Release.Name }}-todo-frontend idToken=true"
    {{- end }}
 spec:
   tls:

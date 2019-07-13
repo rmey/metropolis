@@ -29,6 +29,12 @@ app.use(
   proxy({ target: todoServer, changeOrigin: true, ws: true })
 );
 
+app.get('/appid_callback', (req, res) => {
+  console.log(req.headers);
+  res.send('OK');
+});
+
+
 app.get('*', (req,res) => {
  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
