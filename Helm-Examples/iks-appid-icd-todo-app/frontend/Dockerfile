@@ -1,4 +1,4 @@
-FROM node:11-alpine
+FROM node:11-alpine as build-env
 
 # Create app directory
 RUN mkdir /app
@@ -12,6 +12,10 @@ COPY ./client/*.json /app/client/
 # build React production directory
 RUN cd /app/client && npm install && npm run-script build
 RUN rm -rf /app/client/src  rm -rf /app/client/node_modules
+
+FROM node:11-alpine
+WORKDIR /app
+COPY --from=build-env /app .
 
 # copy node.js files
 COPY ./*.json /app/
