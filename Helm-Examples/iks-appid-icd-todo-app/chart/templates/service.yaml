@@ -2,11 +2,23 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Release.Name }}-simpleapp
+  name: {{ .Release.Name }}-todo-backend
 spec:
   selector:
-    app: {{ .Release.Name }}-simpleapp
+    app: {{ .Release.Name }}-todo-backend
   ports:
   - protocol: TCP
-    port: 6020
-    targetPort: 6020
+    port: 8080
+    targetPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-todo-frontend
+spec:
+  selector:
+    app: {{ .Release.Name }}-todo-frontend
+  ports:
+  - protocol: TCP
+    port: 8888
+    targetPort: 8888

@@ -2,28 +2,49 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-simpleapp
+  name: {{ .Release.Name }}-todo-backend
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-simpleapp
+        app: {{ .Release.Name }}-todo-backend
     spec:
       containers:
-      - name: {{ .Release.Name }}-simpleapp
-        image: de.icr.io/renemeyer/simpleapp
-        imagePullPolicy: Always
+      - name: {{ .Release.Name }}-todo-backend
+        image: {{ .Values.image_backend.repository }}:{{ .Values.image_backend.tag }}
+        imagePullPolicy: {{ .Values.image_backend.pullPolicy }}
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
-        volumeMounts:
-        - name: configs
-          mountPath: /src/.env
-          subPath: .env
-      volumes:
-      - name: configs
-        configMap:
-          name: {{ .Release.Name }}-dot-env-file
+        env:
+        - name:   MONGODB_URL
+          value:  {{ .Values.mongodb_url }}
+        - name:   CERTIFICATE_BASE64
+          value:  {{ .Values.certificate_base64 }}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-todo-frontend
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-todo-frontend
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-todo-frontend
+        image: {{ .Values.image_frontend.repository }}:{{ .Values.image_frontend.tag }}
+        imagePullPolicy: {{ .Values.image_frontend.pullPolicy }}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name:   TODO_GRAPHQL_URI
+          value:  http://{{ .Release.Name }}-todo-backend:8080

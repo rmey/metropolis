@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-simpleapp
+  name: {{ .Release.Name }}
   annotations:
    ingress.bluemix.net/redirect-to-https: "True"
 spec:
@@ -16,5 +16,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Release.Name }}-simpleapp
-          servicePort: 6020
+          serviceName: {{ .Release.Name }}-todo-frontend
+          servicePort: 8888

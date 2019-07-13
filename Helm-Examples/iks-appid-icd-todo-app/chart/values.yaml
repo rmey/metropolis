@@ -3,10 +3,17 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-image:
-  repository: de.icr.io/renemeyer/simpleapp
+
+image_backend:
+  repository: de.icr.io/renemeyer/todo-backend
   tag: latest
   pullPolicy: Always
+
+image_frontend:
+  repository: de.icr.io/renemeyer/todo-frontend
+  tag: latest
+  pullPolicy: Always
+
 # your IBM Cloud MongoDB Connection String
 mongodb_url: "mongodb://ibm_cloud_XXX:XXX@HOST1:30212,HOST2:30212/ibmclouddb?authSource=admin&replicaSet=replset"
 # your IBM Cloud ICD MongoDB base64 cert
