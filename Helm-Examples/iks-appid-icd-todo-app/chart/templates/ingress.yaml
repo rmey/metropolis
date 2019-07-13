@@ -5,6 +5,9 @@ metadata:
   name: {{ .Release.Name }}
   annotations:
    ingress.bluemix.net/redirect-to-https: "True"
+   {{- if .Values.appid_credentials }}
+   ingress.bluemix.net/hsts: enabled=true maxAge=<31536000> includeSubdomains=true
+   {{- end }}
 spec:
   tls:
   - hosts:

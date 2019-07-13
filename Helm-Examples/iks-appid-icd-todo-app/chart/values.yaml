@@ -22,3 +22,5 @@ certificate_base64: "LS....="
 ingressSubdomain: "CLUSTERNAME.REGION.containers.appdomain.cloud"
 # Ingress secret
 ingressSecret: "CLUSTERNAME"
+# enable for APP ID Integration (JSON file with Service Credentials)
+appid_credentials: "_appid.json"
