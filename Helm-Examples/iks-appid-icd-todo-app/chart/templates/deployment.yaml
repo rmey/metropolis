@@ -1,0 +1,29 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-simpleapp
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-simpleapp
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-simpleapp
+        image: de.icr.io/renemeyer/simpleapp
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: configs
+          mountPath: /src/.env
+          subPath: .env
+      volumes:
+      - name: configs
+        configMap:
+          name: {{ .Release.Name }}-dot-env-file

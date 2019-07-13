@@ -1,0 +1,12 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-simpleapp
+spec:
+  selector:
+    app: {{ .Release.Name }}-simpleapp
+  ports:
+  - protocol: TCP
+    port: 6020
+    targetPort: 6020
