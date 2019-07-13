@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-simpleapp
-        image: de.icr.io/renemeyer/simpleapp
-        imagePullPolicy: Always
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           requests:
             cpu: 100m
