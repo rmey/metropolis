@@ -86,4 +86,26 @@ export default class TodoQueryClient {
     console.log(data);
     return {ok:true, result: data};
   }
+
+  async deleteItem(_id: String){
+    var data = null;
+    try {
+      data = await this.apolloClient.mutate({
+        variables: {_id: _id},
+        mutation: gql`mutation delete($_id: String!){
+          delete(_id: $_id) {
+            _id
+            text
+            isComplete
+          }
+        }
+      `
+      });
+    } catch (e) {
+        console.error(e);
+        return {ok:false, error: e};
+    }
+    console.log(data);
+    return {ok:true, result: data};
+  }
 }

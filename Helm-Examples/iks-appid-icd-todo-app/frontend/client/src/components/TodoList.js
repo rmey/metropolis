@@ -18,8 +18,13 @@ class TodoList extends React.Component {
     this.onClickComplete = this.onClickComplete.bind(this);
   }
 
-  async onClickRemove(idx) {
-
+  async onClickRemove(item) {
+    const client = new TodoQueryClient();
+    const ret = await client.deleteItem(item._id);
+    if(ret.ok){
+      //this.setState({listitems:ret.result.data.getTodoitems});
+      this.setState({isLoading:false});
+    }
   }
   async onClickComplete(item) {
     item.isComplete = item.isComplete != true;
@@ -43,7 +48,7 @@ class TodoList extends React.Component {
                 <span className={item.isComplete ?  "isComplete":"isNotComplete"} style={{fontSize: 20}}>
                 {item.text}
                 </span>
-                <Button className="delete-btn">
+                <Button className="delete-btn" onClick={ () => this.onClickRemove({_id:item._id}) }>
                   <FontAwesomeIcon icon={faTrash} />
                 </Button>
               </ListGroup.Item>
