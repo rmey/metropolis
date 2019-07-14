@@ -8,7 +8,7 @@ const typeDefs = gql`
     type Todoitem {
         _id: ID
         text: String
-        isComplete: String
+        isComplete: Boolean
     }
     type Query {
         getTodoitems: [Todoitem]

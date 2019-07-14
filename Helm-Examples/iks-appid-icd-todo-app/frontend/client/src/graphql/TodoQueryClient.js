@@ -65,4 +65,25 @@ export default class TodoQueryClient {
     return ret;
   }
 
+  async updateCompletion(_id: String, isComplete){
+    var data = null;
+    try {
+      data = await this.apolloClient.mutate({
+        variables: {_id: _id, isComplete: isComplete},
+        mutation: gql`mutation updateCompletion ($_id: String!, $isComplete: Boolean){
+          updateCompletion(_id: $_id, isComplete: $isComplete) {
+            _id
+            text
+            isComplete
+          }
+        }
+      `
+      });
+    } catch (e) {
+        console.error(e);
+        return {ok:false, error: e};
+    }
+    console.log(data);
+    return {ok:true, result: data};
+  }
 }
