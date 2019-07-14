@@ -13,19 +13,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class TodoList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {listitems:[],error: null,isLoading: true};
+    this.state = {listitems:[], error: null};
     this.onClickRemove = this.onClickRemove.bind(this);
     this.onClickComplete = this.onClickComplete.bind(this);
+  }
+
+  async fetchData() {
+    // make the call to the backend
+    const client = new TodoQueryClient();
+    const ret = await client.getTodoItems();
+    if(ret.ok){
+      this.setState({listitems:ret.result.data.getTodoitems});
+    }
   }
 
   async onClickRemove(item) {
     const client = new TodoQueryClient();
     const ret = await client.deleteItem(item._id);
     if(ret.ok){
-      //this.setState({listitems:ret.result.data.getTodoitems});
-      this.setState({isLoading:false});
-      // one time I will understand states
-      this.forceUpdate();
+      await client.killCache();
+      await this.fetchData();
     }
   }
   async onClickComplete(item) {
@@ -33,10 +40,7 @@ class TodoList extends React.Component {
     const client = new TodoQueryClient();
     const ret = await client.updateCompletion(item._id, item.isComplete);
     if(ret.ok){
-      //this.setState({listitems:ret.result.data.getTodoitems});
-      this.setState({isLoading:false});
-      // one time I will understand states
-      this.forceUpdate();
+      await this.fetchData();
     }
   }
 
@@ -64,12 +68,7 @@ class TodoList extends React.Component {
   }
   async componentDidMount() {
     // make the call to the backend
-    const client = new TodoQueryClient();
-    const ret = await client.getTodoItems();
-    if(ret.ok){
-      this.setState({listitems:ret.result.data.getTodoitems});
-      this.setState({isLoading:false});
-    }
+    await this.fetchData();
   }
 
 }

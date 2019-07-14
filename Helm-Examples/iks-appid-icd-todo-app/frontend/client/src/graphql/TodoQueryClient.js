@@ -21,6 +21,11 @@ export default class TodoQueryClient {
     instance = this;
   }
 
+  async killCache(){
+      // this is very ugly!
+      await this.apolloClient.clearStore();
+  }
+
   async addTodoItem(todo) {
     var data = null;
     try {
@@ -95,8 +100,6 @@ export default class TodoQueryClient {
         mutation: gql`mutation delete($_id: String!){
           delete(_id: $_id) {
             _id
-            text
-            isComplete
           }
         }
       `

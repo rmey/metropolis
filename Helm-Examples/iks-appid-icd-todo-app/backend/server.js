@@ -43,7 +43,7 @@ const resolvers = {
             try {
                 let response = await Todoitem.deleteOne({_id: args._id});
                 console.log(response);
-                return response;
+                return {_id:args._id};
             } catch(e) {
                 console.log(e);
 
@@ -55,7 +55,8 @@ const resolvers = {
                 console.log(args);
                 let response = await Todoitem.updateOne({_id:args._id}, {text:args.text},{new:true});
                 console.log(response);
-
+                response = await Todoitem.findOne({_id:args._id}).exec();
+                console.log(response);
                 return response;
             } catch(e) {
                 console.log(e);
@@ -66,6 +67,9 @@ const resolvers = {
             try {
                 console.log(args);
                 let response = await Todoitem.updateOne({_id:args._id}, {isComplete:args.isComplete},{new:true});
+                console.log(response);
+                response = await Todoitem.findOne({_id:args._id}).exec();
+                console.log("DEADBEEF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 console.log(response);
                 return response;
             } catch(e) {
