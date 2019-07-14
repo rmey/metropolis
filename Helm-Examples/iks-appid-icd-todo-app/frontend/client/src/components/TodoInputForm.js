@@ -39,7 +39,7 @@ class TodoInputForm extends React.Component {
       return <h1>Caught an error.</h1>
     }*/
     return (
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-3" style={{ marginTop: "20px" }}>
       <FormControl
         placeholder="Enter a todo text"
         value={this.state.todotext} type="text" onChange={this.handleChange}

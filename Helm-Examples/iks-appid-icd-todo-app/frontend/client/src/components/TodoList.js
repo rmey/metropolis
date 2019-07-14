@@ -24,6 +24,8 @@ class TodoList extends React.Component {
     if(ret.ok){
       //this.setState({listitems:ret.result.data.getTodoitems});
       this.setState({isLoading:false});
+      // one time I will understand states
+      this.forceUpdate();
     }
   }
   async onClickComplete(item) {
@@ -33,6 +35,8 @@ class TodoList extends React.Component {
     if(ret.ok){
       //this.setState({listitems:ret.result.data.getTodoitems});
       this.setState({isLoading:false});
+      // one time I will understand states
+      this.forceUpdate();
     }
   }
 
@@ -67,6 +71,7 @@ class TodoList extends React.Component {
       this.setState({isLoading:false});
     }
   }
+
 }
 
 export default TodoList;
