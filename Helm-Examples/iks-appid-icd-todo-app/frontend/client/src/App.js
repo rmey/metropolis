@@ -14,8 +14,18 @@ class TodoApp extends React.Component {
 
   render() {
     return (
-      // fix this to DSX!!!
-      React.createElement("div", { id: "root" },React.createElement(Header, null), React.createElement("div", { id: "todo" },React.createElement(TodoInputForm, null),React.createElement(TodoList, null)), React.createElement(Footer, null))
+      <div id="root">
+        <Header>
+        </Header>
+        <div id="todo">
+          <TodoInputForm>
+          </TodoInputForm>
+          <TodoList>
+          </TodoList>
+        </div>
+        <Footer>
+        </Footer>
+      </div>
     );
   }
 }
