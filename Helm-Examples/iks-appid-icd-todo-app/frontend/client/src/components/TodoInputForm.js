@@ -7,12 +7,14 @@ import InputGroup from 'react-bootstrap/InputGroup'
 
 import TodoQueryClient from '../graphql/TodoQueryClient'
 
+import { todoListService } from './TodoSubject';
+
 class TodoInputForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = { todotext: ''};
     this.state = { error: null};
-    //this.todotext = React.createRef();
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,6 +33,13 @@ class TodoInputForm extends React.Component {
       this.setState({ error: 'Item could not be created' + ret.error});
     }
     this.setState({todotext: ''});
+    // and again the f... apollo cache is not working
+    await client.killCache();
+    const ret2 = await client.getTodoItems();
+    if(ret2.ok){
+      todoListService.updateTodoList(ret2.result.data.getTodoitems);
+    }
+
   }
 
   render() {

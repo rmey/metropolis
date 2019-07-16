@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import TodoQueryClient from '../graphql/TodoQueryClient'
 import Button from 'react-bootstrap/Button'
 
-import { TodoProvider, TodoConsumer} from "./TodoContext";
+import { todoListService } from './TodoSubject';
 
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +16,32 @@ class TodoList extends React.Component {
     this.state = {listitems:[], error: null};
     this.onClickRemove = this.onClickRemove.bind(this);
     this.onClickComplete = this.onClickComplete.bind(this);
+    // subscribe to home component messages
+    this.subscription = todoListService.getTodoList().subscribe(list => {
+        if (list) {
+            this.setState({ listitems:list.todolist });
+        } else {
+            this.setState({ listitems: [] });
+        }
+    });
   }
+
+  componentDidMount() {
+        // subscribe to home component messages
+        this.subscription = todoListService.getTodoList().subscribe(list => {
+            if (list) {
+                this.setState({ listitems:list });
+            } else {
+                this.setState({ listitems: [] });
+            }
+        });
+    }
+
+  componentWillUnmount() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
+  }
+
 
   async fetchData() {
     // make the call to the backend
