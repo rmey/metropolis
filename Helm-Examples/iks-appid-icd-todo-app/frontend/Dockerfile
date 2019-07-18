@@ -14,7 +14,10 @@ RUN cd /app/client && npm install && npm run-script build
 RUN rm -rf /app/client/src  rm -rf /app/client/node_modules
 
 FROM node:11-alpine
+RUN mkdir -p /app && chown -R node:node /app
+USER node
 WORKDIR /app
+
 COPY --from=build-env /app .
 
 # copy node.js files
