@@ -1,9 +1,8 @@
 FROM node:11-alpine
 
-# Create app directory
-RUN mkdir /app
+RUN mkdir -p /app && chown -R node:node /app
+USER node
 WORKDIR /app
-
 
 # Bundle app source
 COPY ./*.js /app/
