@@ -6,7 +6,7 @@ metadata:
   annotations:
    ingress.bluemix.net/redirect-to-https: "True"
    {{- if .Values.appid_credentials }}
-   ingress.bluemix.net/appid-auth: "bindSecret={{- .Release.Name -}}-appid namespace=default requestType=web serviceName={{ .Release.Name }}-todo-frontend idToken=true"
+   ingress.bluemix.net/appid-auth: "bindSecret={{- .Release.Name -}}-appid namespace={{.Release.Namespace}} requestType=web serviceName={{ .Release.Name }}-todo-frontend idToken=true"
    {{- end }}
 spec:
   tls:
