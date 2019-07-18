@@ -22,7 +22,11 @@ certificate_base64: "LS....="
 ingressSubdomain: "CLUSTERNAME.REGION.containers.appdomain.cloud"
 # Ingress secret
 ingressSecret: "CLUSTERNAME"
-# enable for APP ID Integration (JSON file with Service Credentials)
-appid_credentials: "_appid.json"
-# to disable set to empty value!!!!
+# enable for APP ID Integrataion AppId Service Credentials (JSON Service Credentials)
+# see also https://stackoverflow.com/questions/52930405/how-do-i-use-json-variables-in-a-yaml-file-helm
+# optional
+appid_credentials:
+  {"apikey":"*","secret":"*"}
+# comment if you want to ommit this
 #appid_credentials:
+# {}
