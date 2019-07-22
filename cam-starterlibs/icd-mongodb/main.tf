@@ -26,13 +26,6 @@ data "ibm_resource_group" "group" {
   name = "${var.rg}"
 }
 
-provider "ibm" {
- ibmcloud_timeout = 50000
- softlayer_timeout = 50000
- max_retries = 100
- region = "eu-de"
-}
-
 resource "ibm_database" "db" {
   resource_group_id = "${data.ibm_resource_group.group.id}"
   name              = "${var.svcname}"
@@ -54,4 +47,7 @@ resource "ibm_database" "db" {
 
 output "connectionString" {
   value = "http://${"${ibm_database.db.connectionstrings.0.composed}"}"
+}
+output "certificate_base64" {
+  value = "${ibm_database.db.connectionstrings.0.certbase64}"
 }
