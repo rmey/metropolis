@@ -43,6 +43,13 @@ resource "ibm_database" "db" {
     name     = "${var.user}"
     password = "${var.password}"
   }
+  
+provider "ibm" {
+ ibmcloud_timeout = 50000
+ softlayer_timeout = 50000
+ max_retries = 100
+ region = "eu-de"
+}
 }
 
 output "connectionString" {
