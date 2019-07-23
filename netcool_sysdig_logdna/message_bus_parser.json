@@ -1,0 +1,50 @@
+{
+	"eventSources": [{
+			"endpoint": "/notification",
+			"name": "NotificationAlarmParser",
+			"config": {
+				"dataToRecord": [],
+				"messagePayload": "json",
+				"messageHeader": "",
+				"jsonNestedPayload": "",
+				"jsonNestedHeader": "",
+				"messageDepth": 3
+			}
+		}, {
+			"endpoint": "/resync",
+			"name": "resync",
+			"config": {
+				"dataToRecord": [],
+				"messagePayload": "json",
+				"messageHeader": "",
+				"jsonNestedPayload": "",
+				"jsonNestedHeader": "",
+				"messageDepth": 4
+			}
+		},
+		{
+			"endpoint": "/sysdig",
+			"name": "sysdig",
+			"config": {
+				"dataToRecord": [],
+				"messagePayload": "json",
+				"messageHeader": "",
+				"jsonNestedPayload": "",
+				"jsonNestedHeader": "",
+				"messageDepth": 4
+			}
+		},
+		{
+			"endpoint": "/",
+			"name": "logdna",
+			"config": {
+				"dataToRecord": [],
+				"messagePayload": "json",
+				"messageHeader": "",
+				"jsonNestedPayload": "",
+				"jsonNestedHeader": "",
+				"messageDepth":  4
+			}
+		}
+	]
+}

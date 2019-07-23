@@ -1,0 +1,22 @@
+#
+# omni.dat file as prototype for interfaces file
+#
+# Ident: $Id: omni.dat 1.5 1999/07/13 09:34:20 chris Development $
+#
+
+[CLIENT_BRIDGE]
+
+{
+
+      Primary:  netcool-proxy 10011
+
+}
+
+[NCO_BRIDGE]
+
+{
+
+      Primary: netcool-proxy 10001
+
+}
+
