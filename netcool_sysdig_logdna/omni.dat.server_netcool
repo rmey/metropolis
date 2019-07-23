@@ -1,0 +1,25 @@
+[AGG_P]
+{
+	Primary:	noi1411 4100
+}
+
+[AGG_V]
+{
+	Primary:	noi1411 4100
+}
+
+[G_ASM]
+{
+	Primary:	noi1411 4300
+}
+
+[NOI1411_PA]
+{
+	Primary:	noi1411 4200
+}
+
+[SERVER_BRIDGE]
+{
+	Primary:	noi1411 10010
+}
+
