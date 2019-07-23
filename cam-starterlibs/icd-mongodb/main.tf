@@ -45,8 +45,16 @@ resource "ibm_database" "db" {
   }
 }
 
+provider "ibm" {
+ ibmcloud_timeout = 50000
+ softlayer_timeout = 50000
+ max_retries = 100
+ region = "eu-de"
+}
+
+
 output "connectionString" {
-  value = "http://${"${ibm_database.db.connectionstrings.0.composed}"}"
+  value = "${ibm_database.db.connectionstrings.0.composed}"
 }
 output "certificate_base64" {
   value = "${ibm_database.db.connectionstrings.0.certbase64}"
