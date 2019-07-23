@@ -50,7 +50,7 @@ resource "ibm_database" "db" {
     name     = "${var.user}"
     password = "${var.password}"
   }
-  
+
 
 }
 
@@ -66,5 +66,7 @@ output "connectionString" {
   value = "${ibm_database.db.connectionstrings.0.composed}"
 }
 output "certificate_base64" {
-  value = "${ibm_database.db.connectionstrings.0.certbase64}"
+  # value = "${ibm_database.db.connectionstrings.0.certbase64}"
+  value = "${replace(ibm_database.db.connectionstrings.0.composed,"$PASSWORD",var.password)}"
+
 }
