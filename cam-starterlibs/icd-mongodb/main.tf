@@ -54,12 +54,6 @@ resource "ibm_database" "db" {
 
 }
 
-provider "ibm" {
- ibmcloud_timeout = 50000
- softlayer_timeout = 50000
- max_retries = 100
- region = "eu-de"
-}
 
 
 output "connectionString" {
