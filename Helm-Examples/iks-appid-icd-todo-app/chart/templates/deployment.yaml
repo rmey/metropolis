@@ -1,11 +1,43 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongodb-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mongodb-backend
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mongodb-backend
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-mongodb-backend
+        image: mongo:3.6.2
+        imagePullPolicy: {{ .Values.image_backend.pullPolicy }}
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: admin
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: admin
+        - name : MONGO_INITDB_DATABASE
+          value: todo
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-todo-backend
-  namespace: default
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-todo-backend
   template:
     metadata:
       labels:
@@ -21,17 +53,21 @@ spec:
             memory: 100Mi
         env:
         - name:   MONGODB_URL
-          value:  {{ .Values.mongodb_url }}
-        - name:   CERTIFICATE_BASE64
-          value:  {{ .Values.certificate_base64 }}
+          value:  mongodb://admin:admin@{{ .Release.Name }}-mongodb-backend:27017/todo?authSource=admin
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup {{ .Release.Name }}-mongodb-backend; do echo waiting for myservice; sleep 2; done; sleep 20']         
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-todo-frontend
-  namespace: default
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-todo-frontend
   template:
     metadata:
       labels:
