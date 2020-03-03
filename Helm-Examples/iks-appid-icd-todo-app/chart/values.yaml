@@ -5,12 +5,12 @@
 replicaCount: 1
 
 image_backend:
-  repository: de.icr.io/renemeyer/todo-backend
+  repository: docker.io/renemeyer/todo-backend
   tag: latest
   pullPolicy: Always
 
 image_frontend:
-  repository: de.icr.io/renemeyer/todo-frontend
+  repository: docker.io/renemeyer/todo-frontend
   tag: latest
   pullPolicy: Always
 
