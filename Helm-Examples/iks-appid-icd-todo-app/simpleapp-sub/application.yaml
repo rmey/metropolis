@@ -1,0 +1,17 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: simple-application
+  labels:
+    app: simpleapp
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - simpleapp
+  componentKinds:
+  - group: app.ibm.com
+    kind: Subscription
+

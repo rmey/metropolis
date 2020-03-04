@@ -1,0 +1,21 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: simple-subscription
+  labels:
+    app: simpleapp
+spec:
+  channel: simpleapp-channel/simpleapp-channel
+  name: simpleapp
+  placement:
+    placementRef:
+      name: simpleapp-placementrule
+      kind: PlacementRule
+      group: app.ibm.com
+  packageOverrides:
+  - packageName: simpleapp
+    packageOverrides:
+    - path: spec.values
+      value: |
+        ingressSubdomain: "mkcluster-39f27438425aac5c04e02b8db0e1bea0-0000.eu-de.containers.appdomain.cloud"
+        ingressSecret: "mkcluster-39f27438425aac5c04e02b8db0e1bea0-0000"
