@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  simpleapp:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2020-03-04T10:25:50.869968+01:00
+    description: MEAN App for IKS and ICD MongoDB with ingress
+    digest: 235b6961656f91b65fa18815b40f5be4ebb059b366589116bb2ff288f3f6b0ae
+    name: simpleapp
+    urls:
+    - https://rmey.github.io/metropolis/simpleapp-0.1.0.tgz
+    version: 0.1.0
+generated: 2020-03-04T10:25:50.86718+01:00
